@@ -8,7 +8,6 @@
   
 
 stages:
-
   - build
 
 build_runner:
@@ -17,15 +16,5 @@ build_runner:
     - amd64
   variables:
     GITLAB_RUNNER_IMAGE_TYPE: gitlab-runner
-    GITLAB_RUNNER_IMAGE_TAG: alpine-v17.9.1
-  extends: .build_script
-
-
-build_runner_helper:
-  stage: build
-  tags:
-    - amd64
-  variables:
-    GITLAB_RUNNER_IMAGE_TYPE: gitlab-runner-helper
-    GITLAB_RUNNER_IMAGE_TAG: x86_64-v17.9.1
+    GITLAB_RUNNER_IMAGE_TAG: latest
   extends: .build_script
