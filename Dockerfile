@@ -4,7 +4,7 @@ FROM gitlab/${GITLAB_RUNNER_IMAGE_TYPE}:${GITLAB_RUNNER_IMAGE_TAG}
 
 RUN apt update && \
 	apt upgrade && \
-	apt install -y --no-cache \
+	apt install -y \
 		build-essential \
 		curl \
 		wget \
@@ -17,5 +17,6 @@ RUN apt update && \
 		nodejs npm && \
 	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh && \
 	source ~/.bash_profile && \
+	corepack enable pnpm &&\
 	rustup target add x86_64-pc-windows-msvc
 
