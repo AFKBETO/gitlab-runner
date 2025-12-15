@@ -1,9 +1,9 @@
 .build_script:
   before_script:
-    - echo $TOKEN | docker login -u $USERNAME --password-stdin $CI_REGISTRY
+    - echo $CI_DEPLOY_PASSWORD | docker login -u $CI_DEPLOY_USER --password-stdin $CI_REGISTRY
   script:
-    - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$GITLAB_RUNNER_IMAGE_TYPE:$GITLAB_RUNNER_IMAGE_TAG --build-arg GITLAB_RUNNER_IMAGE_TYPE=$GITLAB_RUNNER_IMAGE_TYPE --build-arg GITLAB_RUNNER_IMAGE_TAG=$GITLAB_RUNNER_IMAGE_TAG -f Dockerfile .
-    - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$GITLAB_RUNNER_IMAGE_TYPE:$GITLAB_RUNNER_IMAGE_TAG
+    - docker build -t $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$GITLAB_RUNNER_IMAGE_TYPE:$GITLAB_RUNNER_IMAGE_TAG --build-arg GITLAB_RUNNER_IMAGE_TYPE=$GITLAB_RUNNER_IMAGE_TYPE --build-arg GITLAB_RUNNER_IMAGE_TAG=$GITLAB_RUNNER_IMAGE_TAG -f Dockerfile .
+    - docker push $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/$GITLAB_RUNNER_IMAGE_TYPE:$GITLAB_RUNNER_IMAGE_TAG
     - docker logout $CI_REGISTRY
   
 
@@ -18,8 +18,6 @@ build_runner:
   variables:
     GITLAB_RUNNER_IMAGE_TYPE: gitlab-runner
     GITLAB_RUNNER_IMAGE_TAG: alpine-v17.9.1
-    USERNAME: $CI_DEPLOY_USER
-    TOKEN: $CI_DEPLOY_PASSWORD
   extends: .build_script
 
 
@@ -30,6 +28,4 @@ build_runner_helper:
   variables:
     GITLAB_RUNNER_IMAGE_TYPE: gitlab-runner-helper
     GITLAB_RUNNER_IMAGE_TAG: x86_64-v17.9.1
-    USERNAME: $HELPER_USER
-    TOKEN: $HELPER_TOKEN
   extends: .build_script
