@@ -13,14 +13,10 @@ RUN apt update && \
 		libssl-dev \
 		libayatana-appindicator3-dev \
 		librsvg2-dev \
-		nsis llvm lld clang &&\
+		nsis llvm lld clang \
+		nodejs &&\
 	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh && \
 	source ~/.bash_profile && \
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-	
-ENV NVM_DIR=/root/.nvm
-
-RUN	bash -c "source $NVM_DIR/nvm.sh && nvm install 22" && \
 	corepack enable pnpm && \
 	rustup target add x86_64-pc-windows-msvc
 
