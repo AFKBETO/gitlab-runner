@@ -15,7 +15,7 @@ RUN apt-get update && \
 		librsvg2-dev \
 		nsis llvm lld clang &&\
 	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y && \
-	. ~/.bash_profile && \
+	. ~/.cargo/env && \
 	rustup target add x86_64-pc-windows-msvc && \
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 	
