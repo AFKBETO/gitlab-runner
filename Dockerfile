@@ -18,7 +18,7 @@ RUN apt update && \
 ENV NVM_DIR=/root/.nvm
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
-	bash -c "source $NVM_DIR/nvm.sh && nvm install -y 22" && \
+	bash -c "source $NVM_DIR/nvm.sh && nvm install 22 -y" && \
 	curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh && \
 	source ~/.bash_profile && \
 	corepack enable pnpm && \
